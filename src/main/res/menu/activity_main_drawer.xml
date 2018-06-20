@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_opcion_Mostrar"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Mostrar" />
+        <item
+            android:id="@+id/nav_opcion_Insertar"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Insertar" />
+        <item
+            android:id="@+id/nav_opcion_Insertar_masivo"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Insertar masivos" />
+        <item
+            android:id="@+id/nav_opcion_Actualizar"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Actualizar" />
+        <item
+            android:id="@+id/nav_opcion_Eliminar"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Eliminar" />
+        <item
+            android:id="@+id/nav_opcion_Mostrar_Clientes"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Mostrar Clientes" />
+        <item
+            android:id="@+id/nav_opcion_Insertar_HTTP_Client"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Cargar Imagenes" />
+    </group>
+</menu>

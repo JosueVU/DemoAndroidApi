@@ -30,7 +30,7 @@ public class operacionInsertarMasivo extends Fragment {
     private static int RESULT_LOAD_IMAGE = 1;
     GridView gridView;
     //String jsonURL="http://jsonplaceholder.typicode.com/users";
-    String jsonURL="http://172.16.31.42/INEC.TEMA1.WebAPI/api/Usuario/AgregarUsuariosMasivos";
+    String jsonURL="http://172.16.30.190/INEC.TEMA1.WebAPI/api/Usuario/AgregarUsuariosMasivos";
     GridView gv;
     private ImageView profImg;
     private static final int RESULT_OK = -1;

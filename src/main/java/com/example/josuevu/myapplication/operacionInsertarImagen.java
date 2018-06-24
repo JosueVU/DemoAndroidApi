@@ -18,10 +18,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,7 +39,7 @@ public class operacionInsertarImagen extends Fragment {
     private static int RESULT_LOAD_IMAGE = 1;
     GridView gridView;
     //String jsonURL="http://jsonplaceholder.typicode.com/users";
-    String jsonURL="http://172.16.31.42/INEC.TEMA1.WebAPI/api/UsuarioImagen/AgregarUsuario";
+    String jsonURL="http://192.168.0.102/INEC.TEMA1.WebAPI/api/UsuarioImagen/AgregarUsuariosMasivos";
     GridView gv;
     private ImageView profImg;
     private static final int RESULT_OK = -1;
@@ -54,6 +57,9 @@ public class operacionInsertarImagen extends Fragment {
         Toolbar toolbar = (Toolbar)myView.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         gridView = (GridView)myView.findViewById(R.id.gridViewClientes);
+
+
+
         profImg = (ImageView) myView.findViewById(R.id.imgView);
         Button buttonLoadImage = (Button)myView.findViewById(R.id.buttonLoadPicture);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
@@ -76,17 +82,18 @@ public class operacionInsertarImagen extends Fragment {
             public void onClick(View arg0) {
 
                 RequestParams params = new RequestParams();
-                params.put("NOMBRE_USUARIO", "Prueba");
+
                 //params.put("key2", "value2");
 
                 for(int i=0;i<gridView.getAdapter().getCount();i++){
                     File imgFile = new File(rutaFoto.get(i));
                     try {
+                        params.put("NOMBRE_USUARIO_"+i, "Prueba");
                         params.put("FOTO_USUARIO_"+i,imgFile);
                     } catch(FileNotFoundException e) {
                         boolean resultado = true;
                     }
-                    params.put("NOMBRE_USUARIO", "Prueba");
+                    //params.put("NOMBRE_USUARIO", "Prueba");
                 }
 
 
@@ -101,15 +108,44 @@ public class operacionInsertarImagen extends Fragment {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                    public void onSuccess(int arg0,
+                                          Header[] arg1, byte[] arg2) {
                         // called when response HTTP status is "200 OK"
-                        boolean resultado = true;
+                        boolean resultado = true;;
+                        JSONObject jo;
+                        String resultadoString = new String(arg2);
+                        resultado = resultadoString.contains("true");
+                        /*try
+                        {
+                            String prueba = new String(arg2);
+                            JSONObject json = new JSONObject(
+                                    new String(arg2));
+                            //jo=response.getJSONObject(index);
+                            resultado = json.getBoolean("");
+                        }
+                        catch (JSONException e){
+
+                            e.printStackTrace();
+                        }*/
+
+                        if(resultado){
+
+                            Toast.makeText(((AppCompatActivity)getActivity()), "Se inserto con exito", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+
+                            Toast.makeText(((AppCompatActivity)getActivity()), "Hubo un error al insertar las imagenes", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                    public void onFailure(int arg0,
+                                          Header[] arg1, byte[] arg2,
+                                          Throwable arg3) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
                         boolean resultado = true;
+                        String s = new String(arg2);
                     }
 
                     @Override

@@ -20,7 +20,7 @@ public class Connector {
             HttpURLConnection con= (HttpURLConnection) url.openConnection();
 
             //CON PROPS
-            con.setRequestMethod("POST");
+            con.setRequestMethod("GET");
             con.setConnectTimeout(15000);
             con.setReadTimeout(15000);
             con.setDoInput(true);

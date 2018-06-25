@@ -24,6 +24,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -39,7 +41,7 @@ public class operacionInsertarImagen extends Fragment {
     private static int RESULT_LOAD_IMAGE = 1;
     GridView gridView;
     //String jsonURL="http://jsonplaceholder.typicode.com/users";
-    String jsonURL="http://192.168.0.102/INEC.TEMA1.WebAPI/api/UsuarioImagen/AgregarUsuariosMasivos";
+    String jsonURL="http://172.16.31.140/INEC.TEMA1.WebAPI/api/UsuarioImagen/AgregarUsuariosMasivos";
     GridView gv;
     private ImageView profImg;
     private static final int RESULT_OK = -1;
@@ -113,20 +115,26 @@ public class operacionInsertarImagen extends Fragment {
                         // called when response HTTP status is "200 OK"
                         boolean resultado = true;;
                         JSONObject jo;
-                        String resultadoString = new String(arg2);
-                        resultado = resultadoString.contains("true");
-                        /*try
+                        //String resultadoString = new String(arg2);
+                        //resultado = resultadoString.contains("true");
+                        try
                         {
                             String prueba = new String(arg2);
-                            JSONObject json = new JSONObject(
-                                    new String(arg2));
+                            JSONArray ja=new JSONArray(prueba);
+
+                            for (int i=0;i<ja.length();i++)
+                            {
+                                jo=ja.getJSONObject(i);
+
+                                String name=jo.getString("NOMBRE_USUARIO");
+                            }
                             //jo=response.getJSONObject(index);
-                            resultado = json.getBoolean("");
+                            //resultado = prueba.contains("true");
                         }
                         catch (JSONException e){
 
                             e.printStackTrace();
-                        }*/
+                        }
 
                         if(resultado){
 

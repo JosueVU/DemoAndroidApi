@@ -1,5 +1,6 @@
 package com.example.josuevu.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -24,13 +25,14 @@ import java.util.ArrayList;
 import INEC.ADAPTER.GridViewImageUsuario;
 import INEC.API_CONECTOR.JSONDownloaderUsuarioAPI;
 import INEC.MODEL.Usuario;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class operacionInsertarMasivo extends Fragment {
     View myView;
     private static int RESULT_LOAD_IMAGE = 1;
     GridView gridView;
     //String jsonURL="http://jsonplaceholder.typicode.com/users";
-    String jsonURL="http://172.16.30.190/INEC.TEMA1.WebAPI/api/Usuario/AgregarUsuariosMasivos";
+    String jsonURL="http://172.16.31.140/INEC.TEMA1.WebAPI/api/Usuario/AgregarUsuariosMasivos";
     GridView gv;
     private ImageView profImg;
     private static final int RESULT_OK = -1;
@@ -40,6 +42,7 @@ public class operacionInsertarMasivo extends Fragment {
     ArrayList<String> rutaFoto = new ArrayList<>();
     ArrayList<String> prueba = new ArrayList<>();
     ArrayList<Bitmap> prueba2 = new ArrayList<>();
+    private String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Nullable
     @Override
@@ -58,6 +61,7 @@ public class operacionInsertarMasivo extends Fragment {
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
 
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
@@ -90,8 +94,13 @@ public class operacionInsertarMasivo extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        EasyPermissions.requestPermissions(this, "Access for storage",
+                101, galleryPermissions);
         //GETTING IMAGE FROM GALLERY
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            //ActivityCompat.requestPermissions(new String[]{}, 1);
+
+
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
 

@@ -59,7 +59,7 @@ public class JSONParserUsuarioAPI extends AsyncTask<Void,Void,Boolean> {
         {
 
 
-
+            Toast.makeText(c, "Se inserto con exito", Toast.LENGTH_SHORT).show();
 
         }else
         {
@@ -72,23 +72,27 @@ public class JSONParserUsuarioAPI extends AsyncTask<Void,Void,Boolean> {
     {
         try
         {
-            JSONArray ja=new JSONArray(jsonData);
-            JSONObject jo;
-
-            users.clear();
-            nombreUsuario.clear();
-            //nombreUsuario = new String[ja.length()];
-
-            for (int i=0;i<ja.length();i++)
-            {
-                jo=ja.getJSONObject(i);
-                String name=jo.getString("NOMBRE_USUARIO");
-                String foto=jo.getString("FOTO_USUARIO");
-                users.add(StringToBitMap(foto));
-                nombreUsuario.add(name);
-            }
-
+            if(jsonData.contains("true")){
             return true;
+
+            }else {
+                JSONArray ja = new JSONArray(jsonData);
+                JSONObject jo;
+
+                users.clear();
+                nombreUsuario.clear();
+                //nombreUsuario = new String[ja.length()];
+
+                for (int i = 0; i < ja.length(); i++) {
+                    jo = ja.getJSONObject(i);
+                    String name = jo.getString("NOMBRE_USUARIO");
+                    String foto = jo.getString("FOTO_USUARIO");
+                    users.add(StringToBitMap(foto));
+                    nombreUsuario.add(name);
+                }
+
+                return true;
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

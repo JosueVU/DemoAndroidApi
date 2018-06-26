@@ -24,6 +24,7 @@ import java.util.ArrayList;
 
 import INEC.ADAPTER.GridViewImageUsuario;
 import INEC.API_CONECTOR.JSONDownloaderUsuarioAPI;
+import INEC.Encriptar.encriptar;
 import INEC.MODEL.Usuario;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -32,7 +33,7 @@ public class operacionInsertarMasivo extends Fragment {
     private static int RESULT_LOAD_IMAGE = 1;
     GridView gridView;
     //String jsonURL="http://jsonplaceholder.typicode.com/users";
-    String jsonURL="http://172.16.31.140/INEC.TEMA1.WebAPI/api/Usuario/AgregarUsuariosMasivos";
+    String jsonURL="http://192.168.0.102/INEC.TEMA1.WebAPI/api/Usuario/AgregarUsuariosMasivos";
     GridView gv;
     private ImageView profImg;
     private static final int RESULT_OK = -1;
@@ -73,9 +74,16 @@ public class operacionInsertarMasivo extends Fragment {
             @Override
             public void onClick(View arg0) {
                 Data = new Usuario[gridView.getAdapter().getCount()];
+                encriptar encripcion = new encriptar();
                 for(int i=0;i<gridView.getAdapter().getCount();i++){
                     DataModel= new Usuario();
-                    DataModel.setNombre_Usuario("Ingreso");
+                    try{
+                        DataModel.setNombre_Usuario(encripcion.Encrypt("Ingreso","PruebaInec2018.AbAbAb23"));
+                    }catch (Exception ex){
+
+
+                    }
+
                     DataModel.setRuta_Foto(rutaFoto.get(i));
                     /*Bitmap prueba =(Bitmap)gridView.getAdapter().getItem(i);
                     Data= new String[gridView.getAdapter().getCount()];
@@ -84,6 +92,8 @@ public class operacionInsertarMasivo extends Fragment {
                 }
 
                 new JSONDownloaderUsuarioAPI(((AppCompatActivity)getActivity()),jsonURL,"POST",Data).execute();
+
+
             }
         });
 

@@ -56,7 +56,7 @@ public class ConectorAPI {
                     ByteArrayBody bab = new ByteArrayBody(data, Data[i].getRuta_Foto());
                     entity.addPart("FOTO_USUARIO_" + i, bab);
                     entity.addPart("NOMBRE_USUARIO_"+ i, new StringBody(Data[i].getNombre_Usuario()));
-                    entity.addPart("APELLIDO1_"+ i, new StringBody(Data[i].getApellido1_Usuario()));
+                    //entity.addPart("APELLIDO1_"+ i, new StringBody(Data[i].getApellido1_Usuario()));
 
                 }
 

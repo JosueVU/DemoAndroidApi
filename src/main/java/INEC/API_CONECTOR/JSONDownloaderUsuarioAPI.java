@@ -83,7 +83,7 @@ public class JSONDownloaderUsuarioAPI extends AsyncTask<Void,Void,String> {
                 //READ
                 while ((line=br.readLine()) != null)
                 {
-                    jsonData.append(line+"n");
+                    jsonData.append(line);
                 }
 
                 //CLOSE RESOURCES

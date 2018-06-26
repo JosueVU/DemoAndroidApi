@@ -16,6 +16,8 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import INEC.Encriptar.encriptar;
+
 /**
  * ----------ROLESE-----------
  * 1.RECEIVE JSON DATA
@@ -72,7 +74,17 @@ public class JSONParserUsuarioAPI extends AsyncTask<Void,Void,Boolean> {
     {
         try
         {
-            if(jsonData.contains("true")){
+            encriptar encripcion = new encriptar();
+            String resultado="";
+            try{
+                resultado = encripcion.Decrypt(jsonData,"PruebaInec2018.AbAbAb23");
+            }
+            catch (Exception ex){
+
+                boolean valor =true;
+            }
+
+            if(resultado.contains("true") ||resultado.contains("Exitoso") ){
             return true;
 
             }else {
